@@ -95,11 +95,22 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(book)
 }
 
-func addBook(w http.ResponseWriter, r *http.Request)  {
+func addBook(w http.ResponseWriter, r *http.Request) {
+	var book Book
+	var bookID int
 
+	json.NewDecoder(r.Body).Decode(&book)
+	err := db.QueryRow("INSERT INTO books (title, author, year) values ($1, $2, $3) RETURNING id;",
+						book.Title,
+						book.Author,
+						book.Year,
+	).Scan(&bookID)
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(bookID)
 }
 
-func updateBooks(w http.ResponseWriter, r *http.Request)  {
+func updateBooks(w http.ResponseWriter, r *http.Request) {
 
 }
 
