@@ -2,8 +2,11 @@ package main
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/lib/pq"
+	"github.com/subosito/gotenv"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Book struct {
@@ -15,9 +18,24 @@ type Book struct {
 
 var books []Book
 
-func main() {
-	router := mux.NewRouter()
+func logFatal (err error){
+	if err != nil {
+		log.Fatal(err)
+	}
+}
 
+func init(){
+	gotenv.Load()
+}
+
+func main() {
+
+	pgUrl, err := pq.ParseURL(os.Getenv("ELEPHANTSQL_URL"))
+	logFatal(err)
+
+	log.Println(pgUrl)
+
+	router := mux.NewRouter()
 	router.HandleFunc("/books",getBooks).Methods("GET")
 	router.HandleFunc("/books/{id}",getBook).Methods("GET")
 	router.HandleFunc("/books",addBook).Methods("POST")
