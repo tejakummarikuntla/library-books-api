@@ -22,11 +22,11 @@ func main() {
 	router := mux.NewRouter()
 
 	books = append(books,
-				Book{ID: 1, Title: "title-1" , Author:"author-1", Year:"year-1"},
-				Book{ID: 2, Title: "title-2" , Author:"author-2", Year:"year-2"},
-				Book{ID: 3, Title: "title-3" , Author:"author-3", Year:"year-3"},
-				Book{ID: 4, Title: "title-4" , Author:"author-4", Year:"year-4"},
-				Book{ID: 5, Title: "title-5" , Author:"author-5", Year:"year-5"},
+		Book{ID: 1, Title: "title-1" , Author:"author-1", Year:"year-1"},
+		Book{ID: 2, Title: "title-2" , Author:"author-2", Year:"year-2"},
+		Book{ID: 3, Title: "title-3" , Author:"author-3", Year:"year-3"},
+		Book{ID: 4, Title: "title-4" , Author:"author-4", Year:"year-4"},
+		Book{ID: 5, Title: "title-5" , Author:"author-5", Year:"year-5"},
 	)
 
 	router.HandleFunc("/books",getBooks).Methods("GET")
