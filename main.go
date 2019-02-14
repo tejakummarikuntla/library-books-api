@@ -60,22 +60,39 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 
 	rows, err := db.Query("SELECT * FROM books")
 	logFatal(err)
-
 	defer rows.Close()
 
 	for rows.Next() {
 		err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
 		logFatal(err)
-
 		books = append(books, book)
 	}
 	json.NewEncoder(w).Encode(books)
-
-
 }
 
 func getBook(w http.ResponseWriter, r *http.Request) {
-
+	var book Book
+	params := mux.Vars(r)
+	/*books = []Book{}
+	prams := mux.Vars(r)
+	id, err := strconv.Atoi(prams["id"])
+	logFatal(err)
+	rows, err := db.Query("SELECT * FROM books")
+	logFatal(err)
+	defer rows.Close()
+	for rows.Next() {
+		err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
+		logFatal(err)
+		books = append(books, book)
+		if book.ID == id{
+			json.NewEncoder(w).Encode(book)
+			return
+		}
+	}*/
+	rows := db.QueryRow("SELECT  * FROM books WHERE id=$1", params["id"])
+	err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
+	logFatal(err)
+	json.NewEncoder(w).Encode(book)
 }
 
 func addBook(w http.ResponseWriter, r *http.Request)  {
