@@ -116,5 +116,4 @@ func updateBooks(w http.ResponseWriter, r *http.Request) {
 
 func removeBook(w http.ResponseWriter, r *http.Request){
 
-
 }
