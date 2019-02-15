@@ -73,7 +73,7 @@ func addBook(w http.ResponseWriter, r *http.Request)  {
 }
 
 func updateBooks(w http.ResponseWriter, r *http.Request)  {
-	log.Println("Updates a book")
+	log.Println("Updates a bookRepository")
 
 	var book Book
 	json.NewDecoder(r.Body).Decode(&book)

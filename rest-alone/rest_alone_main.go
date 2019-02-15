@@ -81,11 +81,11 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	logFatal(err)
 	defer rows.Close()
 	for rows.Next() {
-		err := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Year)
+		err := rows.Scan(&bookRepository.ID, &bookRepository.Title, &bookRepository.Author, &bookRepository.Year)
 		logFatal(err)
-		books = append(books, book)
-		if book.ID == id{
-			json.NewEncoder(w).Encode(book)
+		books = append(books, bookRepository)
+		if bookRepository.ID == id{
+			json.NewEncoder(w).Encode(bookRepository)
 			return
 		}
 	}*/
