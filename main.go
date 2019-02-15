@@ -127,5 +127,13 @@ func updateBooks(w http.ResponseWriter, r *http.Request) {
 }
 
 func removeBook(w http.ResponseWriter, r *http.Request){
+	params := mux.Vars(r)
 
+	result, err := db.Exec("DELETE FROM books WHERE id=$1",params["id"])
+	logFatal(err)
+
+	rowsDeleted, err := result.RowsAffected()
+	logFatal(err)
+
+	json.NewEncoder(w).Encode(rowsDeleted)
 }
