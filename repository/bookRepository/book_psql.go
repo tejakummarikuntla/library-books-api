@@ -8,7 +8,6 @@ import (
 
 type BookRepository struct {}
 
-
 func logFatal (err error){
 	if err != nil {
 		log.Fatal(err)
@@ -16,6 +15,7 @@ func logFatal (err error){
 }
 
 func (b BookRepository) GetBooks(db *sql.DB, book models.Book, books []models.Book) []models.Book{
+	
 	rows, err := db.Query("SELECT * FROM books")
 	logFatal(err)
 	defer rows.Close()
@@ -38,6 +38,7 @@ func (b BookRepository) GetBook(db *sql.DB, book models.Book, id int) models.Boo
 }
 
 func (b BookRepository) AddBook(db *sql.DB,book models.Book) int{
+	
 	err := db.QueryRow("INSERT INTO books (title, author, year) values ($1, $2, $3) RETURNING id;",
 		book.Title,
 		book.Author,
