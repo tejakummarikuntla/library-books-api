@@ -25,7 +25,7 @@ func init(){
 }
 
 func main() {
-
+// connect DB from .env of Host environmental variables
 	db = driver.ConnectDB()
 
 	controller := controllers.Controller{}
